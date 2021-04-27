@@ -88,4 +88,72 @@ public class Disk_scheduling {
         System.out.println(print + '\n' + "Total head Movements to newly optimized algorithm : " + sum);
     }
 
+    public static void Cscane() {
+        ArrayList<Integer> cscane = (ArrayList<Integer>) requests.clone();
+        ArrayList<Integer> output = new ArrayList<Integer>();
+        cscane.add(initial);
+        Collections.sort(cscane);
+        int index = cscane.indexOf(initial);
+        int total_Head = 0;
+        int end = 199;
+        // output.add(initial);
+        for (int i = index; i > -1; i--) {
+            output.add(cscane.get(i));
+
+        }
+        output.add(0);
+        output.add(end);
+        for (int i = cscane.size() - 1; i > index; i--) {
+            output.add(cscane.get(i));
+
+        }
+        System.out.print("<");
+        for (int i = 0; i < output.size(); i++) {
+            if (i != 0 && i < output.size()) {
+                System.out.print(",");
+            }
+            System.out.print(" " + output.get(i));
+            if (i > 0) {
+                total_Head = total_Head + Math.abs(output.get(i) - output.get(i - 1));
+            }
+        }
+        System.out.println(" >");
+
+        System.out.println("Total Head = " + total_Head);
+
+    }
+
+    public static void CLook() {
+        ArrayList<Integer> clook = (ArrayList<Integer>) requests.clone();
+        ArrayList<Integer> output = new ArrayList<Integer>();
+        clook.add(initial);
+        Collections.sort(clook);
+        int index = clook.indexOf(initial);
+        int total_Head = 0;
+        for (int i = index; i > -1; i--) {
+            output.add(clook.get(i));
+
+        }
+        //  output.add(clook.get(0));
+        //output.add(clook.get(clook.size()-1));
+        for (int i = clook.size() - 1; i > index; i--) {
+            output.add(clook.get(i));
+
+        }
+        System.out.print("<");
+        for (int i = 0; i < output.size(); i++) {
+            if (i != 0 && i < output.size()) {
+                System.out.print(",");
+            }
+            System.out.print(" " + output.get(i));
+            if (i > 0) {
+                total_Head = total_Head + Math.abs(output.get(i) - output.get(i - 1));
+            }
+        }
+        System.out.println(" >");
+
+        System.out.println("Total Head = " + total_Head);
+
+    }
+
 }
