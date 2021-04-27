@@ -28,6 +28,8 @@ public class Disk_scheduling {
         }
         ShortestSeekTimeFirstAlgorithm();
         newlyOptimizedAlgorithm();
+        Cscane();
+        CLook();
     }
 
     public static void ShortestSeekTimeFirstAlgorithm() {
@@ -90,12 +92,12 @@ public class Disk_scheduling {
 
     public static void Cscane() {
         ArrayList<Integer> cscane = (ArrayList<Integer>) requests.clone();
-        ArrayList<Integer> output = new ArrayList<Integer>();
+        ArrayList<Integer> output = new ArrayList<>();
         cscane.add(initial);
         Collections.sort(cscane);
         int index = cscane.indexOf(initial);
         int total_Head = 0;
-        int end = 199;
+        int end = 200;
         // output.add(initial);
         for (int i = index; i > -1; i--) {
             output.add(cscane.get(i));
@@ -119,13 +121,13 @@ public class Disk_scheduling {
         }
         System.out.println(" >");
 
-        System.out.println("Total Head = " + total_Head);
+        System.out.println("Total head Movements to CScan algorithm : " + total_Head);
 
     }
 
     public static void CLook() {
         ArrayList<Integer> clook = (ArrayList<Integer>) requests.clone();
-        ArrayList<Integer> output = new ArrayList<Integer>();
+        ArrayList<Integer> output = new ArrayList<>();
         clook.add(initial);
         Collections.sort(clook);
         int index = clook.indexOf(initial);
@@ -152,7 +154,7 @@ public class Disk_scheduling {
         }
         System.out.println(" >");
 
-        System.out.println("Total Head = " + total_Head);
+        System.out.println("Total head Movements to CLook algorithm : " + total_Head);
 
     }
 
