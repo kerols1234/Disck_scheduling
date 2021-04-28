@@ -1,6 +1,8 @@
 package disk_scheduling;
 
+import static java.lang.Math.abs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -26,10 +28,21 @@ public class Disk_scheduling {
             temp = scanner.nextInt();
             requests.add(temp);
         }
+        System.out.println("\n------------------------\n");
         ShortestSeekTimeFirstAlgorithm();
+        System.out.println("\n------------------------\n");
         newlyOptimizedAlgorithm();
+        System.out.println("\n------------------------\n");
         Cscane();
+        System.out.println("\n------------------------\n");
         CLook();
+        System.out.println("\n------------------------\n");
+        scan();
+        System.out.println("\n------------------------\n");
+        look();
+        System.out.println("\n------------------------\n");
+        fcfs();
+        System.out.println("\n------------------------");
     }
 
     public static void ShortestSeekTimeFirstAlgorithm() {
@@ -136,8 +149,7 @@ public class Disk_scheduling {
             output.add(clook.get(i));
 
         }
-        //  output.add(clook.get(0));
-        //output.add(clook.get(clook.size()-1));
+
         for (int i = clook.size() - 1; i > index; i--) {
             output.add(clook.get(i));
 
@@ -158,4 +170,110 @@ public class Disk_scheduling {
 
     }
 
+    public static void scan() {
+        int[] arr = new int[nRequests + 2];
+        arr[0] = 0;
+        arr[1] = initial;
+        for (int i = 2; i < nRequests + 2; i++) {
+            arr[i] = requests.get(i - 2);
+        }
+        Arrays.sort(arr);
+        int x = 0;
+        for (int i = 0; i < nRequests + 2; i++) {
+            if (arr[i] == initial) {
+                x = i;
+            }
+        }
+        System.out.print("< " + initial + " , ");
+        int sum = 0;
+        sum += abs(initial - arr[x - 1]);
+        for (int i = x - 1; i >= 0; i--) {
+            if (i != 0) {
+                sum += abs(arr[i] - arr[i - 1]);
+            }
+            if (i == 0) {
+                System.out.print(arr[i] + " , ");
+            } else {
+                System.out.print(arr[i] + " , ");
+            }
+        }
+        sum += abs(arr[0] - arr[x + 1]);
+        for (int i = x + 1; i < arr.length; i++) {
+            if (i != arr.length - 1) {
+                sum += abs(arr[i] - arr[i + 1]);
+            }
+            if (i == arr.length - 1) {
+                System.out.println(arr[i] + " >");
+            } else {
+                System.out.print(arr[i] + " , ");
+            }
+        }
+
+        System.out.print("Total head Movements to scan algorithm : ");
+        System.out.println(sum);
+
+    }
+
+    public static void look() {
+        int[] arr = new int[nRequests + 1];
+        arr[0] = initial;
+        for (int i = 1; i < nRequests + 1; i++) {
+            arr[i] = requests.get(i - 1);
+        }
+        Arrays.sort(arr);
+        int x = 0;
+        for (int i = 0; i < nRequests + 1; i++) {
+            if (arr[i] == initial) {
+                x = i;
+            }
+        }
+        System.out.print("< " + initial + " , ");
+        int sum = 0;
+        sum += abs(initial - arr[x - 1]);
+        for (int i = x - 1; i >= 0; i--) {
+            if (i != 0) {
+                sum += abs(arr[i] - arr[i - 1]);
+            }
+            if (i == 0) {
+                System.out.print(arr[i] + " , ");
+            } else {
+                System.out.print(arr[i] + " , ");
+            }
+        }
+        sum += abs(arr[0] - arr[x + 1]);
+        for (int i = x + 1; i < arr.length; i++) {
+            if (i != arr.length - 1) {
+                sum += abs(arr[i] - arr[i + 1]);
+            }
+            if (i == arr.length - 1) {
+                System.out.println(arr[i] + " >");
+            } else {
+                System.out.print(arr[i] + " , ");
+            }
+        }
+
+        System.out.print("Total head Movements to look algorithm : ");
+        System.out.println(sum);
+
+    }
+
+    public static void fcfs() {
+        int sum = 0;
+        System.out.print("< " + initial + " , ");
+        for (int i = 0; i < nRequests; i++) {
+            if (i == nRequests - 1) {
+                System.out.println(requests.get(i) + " >");
+            } else {
+                System.out.print(requests.get(i) + " , ");
+            }
+        }
+        System.out.print("Total head Movements to FCFS algorithm : ");
+        sum += abs(initial - requests.get(0));
+        for (int i = 0; i < nRequests; i++) {
+            if (i != nRequests - 1) {
+                sum += abs(requests.get(i) - requests.get(i + 1));
+            }
+        }
+        System.out.println(sum);
+    }
 }
